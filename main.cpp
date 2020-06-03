@@ -98,7 +98,7 @@ float velo=0;
 
 int main() {
 
-  pc.baud(9600);
+  pc.baud(115200);
 
   xbee_setup();
 
@@ -127,10 +127,6 @@ void getVelo(){
   getAcc();
   velo = X*0.1;
   pc.printf("velocity=%f\r\n",velo);
-  // for(int i=0; i<100; i++){
-  //   xbee.printf("%1.2f\r\n %1.2f\r\n %1.2f\r\n %d\r\n", X[i], Y[i], Z[i], tilt[i]);
-  //   pc.printf("%1.2f %1.2f %1.2f %d\r\n", X[i], Y[i], Z[i], tilt[i]);
-  // }
 }
 
 void xbee_setup(){
@@ -251,39 +247,9 @@ void getAcc() {
       acc16 -= UINT14_MAX;
 
    X = ((float)acc16) / 4096.0f;
-
-
-   acc16 = (res[2] << 6) | (res[3] >> 2);
-
-   if (acc16 > UINT14_MAX/2)
-
-      acc16 -= UINT14_MAX;
-
-   Y = ((float)acc16) / 4096.0f;
-
-
-   acc16 = (res[4] << 6) | (res[5] >> 2);
-
-   if (acc16 > UINT14_MAX/2)
-
-      acc16 -= UINT14_MAX;
-
-   Z= ((float)acc16) / 4096.0f;
-
  
 }
 
-
-// void getAddr(Arguments *in, Reply *out) {
-
-//    uint8_t who_am_i, data[2];
-
-//    FXOS8700CQ_readRegs(FXOS8700Q_WHOAMI, &who_am_i, 1);
-
-//    pc.printf("Here is %x", who_am_i);
-
-
-// }
 
 
 void FXOS8700CQ_readRegs(int addr, uint8_t * data, int len) {

@@ -7,7 +7,7 @@ import paho.mqtt.client as paho
 
 serdev = '/dev/ttyUSB0'
 
-s = serial.Serial(serdev, 9600)
+s = serial.Serial(serdev, 115200)
 
 mqttc = paho.Client()
 
@@ -57,11 +57,8 @@ print("Connecting to " + host )
 mqttc.connect(host, port=1883, keepalive=60)
 
 # mqttc.subscribe(topic, 0)
-mqttc.subscribe("X", 0)
-mqttc.subscribe("Y", 0)
-mqttc.subscribe("Z", 0)
-mqttc.subscribe("tilt", 0)
-mqttc.subscribe("plot", 0)
+mqttc.subscribe("velocity", 0)
+
 
 # Variables for accel value
 
@@ -172,8 +169,6 @@ for i in range(0, 10):
     print("velo[i]="+str(velo[i]))
     t.sleep(1)
 
-for i in range(0,10):
-    print(velo[i])
 for i in range(0,10):
     print("mqtt publish")
     mqttc.publish("velocity", velo[i]) #mqttc.publish(topic,msg)
